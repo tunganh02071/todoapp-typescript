@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-empty-pattern */
 import TableList from "src/components/elements/TableList/TableList";
 import { IProduct } from "src/types/data";
-import "./Component.scss";
 import { useState } from "react";
 import ModalAddEditProduct from "src/components/ModalAddEditProduct";
+import bind from "classnames/bind";
+import styles from "./Component.module.scss";
+
+const cx = bind.bind(styles);
 
 function ProductListPage() {
   const [listProduct, setListProducts] = useState<IProduct[]>([]);
@@ -12,85 +16,35 @@ function ProductListPage() {
   const [isEditProduct, setIsEditProduct] = useState(false);
 
   const addProduct = (product: IProduct) => {
-    console.log(product);
-    const currentListProducts = [...listProduct];
-
-    const existProduct = currentListProducts.find(
-      (item: IProduct) => item.id === product.id,
-    );
-    if (!existProduct) currentListProducts.push(product);
+    const currentListProducts = [...listProduct, product];
     setListProducts(currentListProducts);
   };
 
-  const changeStatusProductItem = (productId: string) => {
-    const currentListProducts = [...listProduct];
-
-    const newLisProducts = currentListProducts.map((product) => {
-      const resultItem = { ...product };
-      if (product.id === productId) resultItem.isComplete = !product.isComplete;
-      return {
-        ...product,
-      };
+  const updateProduct = (updateProduct: IProduct) => {
+    const currentListProducts = listProduct.map((product) => {
+      if (product.id === updateProduct.id) {
+        return updateProduct;
+      }
+      return product;
     });
-    setListProducts(newLisProducts);
-  };
-
-  const updateProduct = (productId: string, newValue: string) => {
-    if (!newValue || /^\s*s/.test(newValue)) {
-      return;
-    }
-    const currentListProducts = [...listProduct];
-
-    const newLisProducts = currentListProducts.map((product) => {
-      const resultItem = { ...product };
-      if (product.id === productId) resultItem.name = newValue;
-      return {
-        ...product,
-      };
-    });
-    setListProducts(newLisProducts);
+    setListProducts(currentListProducts);
   };
 
   const removeProduct = (productId: string) => {
-    const currentListProducts = [...listProduct];
-
-    const newListProducts = currentListProducts.filter(
+    const newListProducts = listProduct.filter(
       (product) => product.id !== productId,
     );
-
     setListProducts(newListProducts);
   };
 
   return (
     <div className="wrapper">
-      <div
-        style={{
-          width: 500,
-          height: 600,
-          background: "#fff",
-          borderRadius: 20,
-          margin: "0 auto",
-          overflowY: "scroll",
-          padding: 24,
-          position: "relative",
-        }}
-      >
-        <div
-          style={{
-            padding: "16px 0",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+      <div className={cx("wrapper__page")}>
+        <div className={cx("wrapper__page--total")}>
           <h2>Products Manager</h2>
           <button
             onClick={() => setIsOpenModalAddEdit(true)}
-            className={isOpenModalAddEdit ? "btn-none" : "btn-add"}
-            style={{
-              border: "none",
-              color: "#fff",
-            }}
+            className={cx(isOpenModalAddEdit ? "btn-none" : "btn-add")}
           >
             Add Product
           </button>
@@ -98,7 +52,6 @@ function ProductListPage() {
 
         <TableList
           products={listProduct}
-          changeStatusProductItem={changeStatusProductItem}
           removeProduct={removeProduct}
           updateProduct={updateProduct}
           handleOpenEditModal={() => {
@@ -107,24 +60,11 @@ function ProductListPage() {
           }}
         />
       </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div className={cx("open__modal")}>
         {isOpenModalAddEdit && (
           <div
-            style={{
-              position: "relative",
-              width: 400,
-              height: 250,
-              background: "red",
-              display: `${isOpenModalAddEdit ? "flex" : "none"}`,
-              border: "1px solid #d1d1d1",
-              boxShadow: "rgba(0,0,0,0.5)",
-            }}
+            className={cx("open__modal--active")}
+            style={{ display: `${isOpenModalAddEdit ? "flex" : "none"}` }}
           >
             <ModalAddEditProduct
               addProduct={addProduct}

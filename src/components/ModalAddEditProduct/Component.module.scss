@@ -1,0 +1,30 @@
+.form__total {
+    text-align: center; 
+    width: 100%; 
+    position: relative;
+    &--infor {
+        display: flex;
+        flex-direction: column;
+        padding: 24px;
+        align-items: center;
+        &__input {
+            height: 30px;
+            width: 92%;
+            margin-bottom: 15px;
+        }
+    }
+    &--submit {
+        display: flex;
+        width: 92%;
+        &__btn {
+            height: 35px;
+            width: 100%;
+        }
+    }
+}
+
+// .btn {
+//     height: 35px;
+//     width: 100%;
+// }
+

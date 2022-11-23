@@ -1,20 +1,17 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-props-no-spreading */
-import * as React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { IModalAddEditProductProps } from "src/types/components";
 import { makeid } from "src/utils/randomId";
-import "./style.scss";
+import bind from "classnames/bind";
+import styles from "./Component.module.scss";
+
+const cx = bind.bind(styles);
 
 type Inputs = {
   name: string;
   price: string;
 };
-
-export interface IModalAddEditProductProps {
-  addProduct: any;
-  handleCloseModal: any;
-  isEditProduct: boolean;
-}
 
 export default function ModalAddEditProduct({
   addProduct,
@@ -37,38 +34,42 @@ export default function ModalAddEditProduct({
     handleCloseModal();
   };
   return (
-    <div style={{ textAlign: "center", width: "100%", position: "relative" }}>
+    <div className={cx("form__total")}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          padding: 24,
-          alignItems: "center",
-          // position: "absolute",
-        }}
+        className={cx("form__total--infor")}
       >
         <h1>{isEditProduct ? "Edit" : "Add"}</h1>
         <input
           type="text"
           {...register("name", { required: true })}
-          className="input-name"
+          className={cx("form__total--infor__input", "input-name")}
         />
 
         <input
           type="number"
           {...register("price", { required: true })}
-          className="input-number"
+          className={cx("form__total--infor__input", "input-number")}
         />
 
         {(errors.name || errors.price) && <span>This field is required</span>}
 
-        <div style={{ display: "flex", width: "92%" }}>
-          <button type="submit" className="btn-submit">
+        <div
+          style={{ display: "flex", width: "92%" }}
+          className={cx("form__total--submit")}
+        >
+          <button
+            type="submit"
+            className={cx("form__total--submit__btn", "btn-submit")}
+          >
             {isEditProduct ? "Update Product" : "Add new Product"}
           </button>
 
-          <button className="btn-cancel" type="reset">
+          <button
+            className={cx("form__total--submit__btn", "btn-cancel")}
+            type="reset"
+            onClick={() => handleCloseModal()}
+          >
             Canncel
           </button>
         </div>
