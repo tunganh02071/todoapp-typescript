@@ -9,3 +9,9 @@ export interface IProductFormData {
   name: string | null;
   price: number | null;
 }
+
+export interface IProductFormData {
+  id: string | null;
+  name: string | null;
+  price: number | null;
+}
