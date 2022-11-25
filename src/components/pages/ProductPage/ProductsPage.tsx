@@ -57,6 +57,13 @@ const ProductListPage = memo(() => {
           />
           <ProductDialog
             dialogMode={dialogMode}
+            setProducts={function (newProduct: IProduct): void {
+              throw new Error("Function not implemented.");
+            }}
+            setDialogMode={function (newDialogMode: DialogMode): void {
+              throw new Error("Function not implemented.");
+            }}
+          />
         </>
       }
     />
