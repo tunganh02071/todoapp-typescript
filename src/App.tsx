@@ -1,6 +1,11 @@
+// libararys
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+// components
 import HomePage from "./components/pages/HomePage/HomePage";
 import ProductListPage from "./components/pages/ProductPage/ProductsPage";
+
+// styles
 import "./global.scss";
 
 function App() {

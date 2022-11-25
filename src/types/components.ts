@@ -1,7 +1,9 @@
-import { IProduct } from "./data";
+import { ReactNode } from "react";
+import { IProduct, IProductFormData } from "./data";
+import { DialogMode } from "./enum";
 
 export interface LayoutProps {}
-export interface TableListProps {
+export interface ProductTableProps {
   products: any;
   completeProduct: any;
   removeProduct: any;
@@ -14,7 +16,19 @@ export interface IModalAddEditProductProps {
 }
 export interface ProductListPageProps {
   products: IProduct[];
-  removeProduct: any;
-  updateProduct: any;
-  handleOpenEditModal: any;
+  deleteProduct: (productID : string) => void;
+  setProductFormData: (newProductFormData :IProductFormData) => void;
+  setDialogMode: (newDialogMode: DialogMode) => void;
+}
+
+export interface PageLayoutProps {
+  headerElement: ReactNode,
+  bodyElement: ReactNode,
+}
+
+export interface ProductDialogProp {
+  dialogMode: DialogMode,
+  setProducts: (newProduct: IProduct) => void;
+  setDialogMode: (newDialogMode :DialogMode) => void;
+  
 }

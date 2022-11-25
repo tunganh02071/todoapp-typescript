@@ -1,81 +1,66 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-empty-pattern */
-import TableList from "src/components/elements/TableList/TableList";
-import { IProduct } from "src/types/data";
-import { useState } from "react";
-import ModalAddEditProduct from "src/components/ModalAddEditProduct";
+
+// libarary
 import bind from "classnames/bind";
+import { memo, useState } from "react";
+
+// types
+import { DialogMode, IProduct, IProductFormData } from "src/types";
+
+// component
+import ProductTable from "src/components/elements/ProductTable/ProductTable";
+import ModalAddEditProduct from "src/components/ModalAddEditProduct";
+
+// styles
 import styles from "./Component.module.scss";
+import PageLayout from "src/components/layouts/PageLayout/PageLayout";
+import ProductDialog from "src/components/elements/ProductDialog/ProductDialog";
 
 const cx = bind.bind(styles);
 
-function ProductListPage() {
-  const [listProduct, setListProducts] = useState<IProduct[]>([]);
-  const [isOpenModalAddEdit, setIsOpenModalAddEdit] = useState(false);
-  const [isEditProduct, setIsEditProduct] = useState(false);
+const ProductListPage = memo(() => {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [dialogMode, setDialogMode] = useState<DialogMode>(DialogMode.None);
+  const [productFormData, setProductFormData] = useState<IProductFormData>();
 
   const addProduct = (product: IProduct) => {
-    const currentListProducts = [...listProduct, product];
-    setListProducts(currentListProducts);
+    const currentProducts = [...products, product];
+    setProducts(currentProducts);
   };
 
   const updateProduct = (updateProduct: IProduct) => {
-    const currentListProducts = listProduct.map((product) => {
+    const currentProducts = products.map((product) => {
       if (product.id === updateProduct.id) {
         return updateProduct;
       }
       return product;
     });
-    setListProducts(currentListProducts);
+    setProducts(currentProducts);
   };
 
-  const removeProduct = (productId: string) => {
-    const newListProducts = listProduct.filter(
-      (product) => product.id !== productId,
-    );
-    setListProducts(newListProducts);
+  const deleteProduct = (productId: string) => {
+    const newProducts = products.filter((product) => product.id !== productId);
+    setProducts(newProducts);
   };
-
   return (
-    <div className="wrapper">
-      <div className={cx("wrapper__page")}>
-        <div className={cx("wrapper__page--total")}>
-          <h2>Products Manager</h2>
-          <button
-            onClick={() => setIsOpenModalAddEdit(true)}
-            className={cx(isOpenModalAddEdit ? "btn-none" : "btn-add")}
-          >
-            Add Product
-          </button>
-        </div>
-
-        <TableList
-          products={listProduct}
-          removeProduct={removeProduct}
-          updateProduct={updateProduct}
-          handleOpenEditModal={() => {
-            setIsOpenModalAddEdit(true);
-            setIsEditProduct(true);
-          }}
-        />
-      </div>
-      <div className={cx("open__modal")}>
-        {isOpenModalAddEdit && (
-          <div
-            className={cx("open__modal--active")}
-            style={{ display: `${isOpenModalAddEdit ? "flex" : "none"}` }}
-          >
-            <ModalAddEditProduct
-              addProduct={addProduct}
-              handleCloseModal={() => setIsOpenModalAddEdit(false)}
-              isEditProduct={isEditProduct}
-            />
-          </div>
-        )}
-      </div>
-    </div>
+    <PageLayout
+      headerElement={<h1>danh sach san pham</h1>}
+      bodyElement={
+        <>
+          <ProductTable
+            products={products}
+            deleteProduct={deleteProduct}
+            setProductFormData={setProductFormData}
+            setDialogMode={setDialogMode}
+          />
+          <ProductDialog
+            dialogMode={dialogMode}
+        </>
+      }
+    />
   );
-}
+});
 
 export default ProductListPage;

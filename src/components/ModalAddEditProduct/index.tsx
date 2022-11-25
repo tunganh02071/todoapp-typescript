@@ -1,9 +1,17 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-props-no-spreading */
+
+// librarys
 import { SubmitHandler, useForm } from "react-hook-form";
-import { IModalAddEditProductProps } from "src/types/components";
-import { makeid } from "src/utils/randomId";
 import bind from "classnames/bind";
+
+// utils
+import { makeid } from "src/utils/randomId";
+
+// components
+import { IModalAddEditProductProps } from "src/types/components";
+
+// styles
 import styles from "./Component.module.scss";
 
 const cx = bind.bind(styles);
