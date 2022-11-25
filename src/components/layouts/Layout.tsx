@@ -1,18 +1,30 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable react/button-has-type */
 /* eslint-disable no-empty-pattern */
-import { memo } from "react";
-import { Link } from "react-router-dom";
-import { LayoutProps } from "src/types";
 
-const Layout = memo(({}: LayoutProps) => {
+// libarary
+import bind from "classnames/bind";
+import { memo } from "react";
+
+// types
+import { PageLayoutProps } from "src/types";
+
+// component
+
+// styles
+import styles from "./Component.module.scss";
+
+const cx = bind.bind(styles);
+
+const PageLayout = memo(({ headerElement, bodyElement }: PageLayoutProps) => {
   return (
-    <div>
-      <Link to="/product">Product</Link>
-      <br />
-      <Link to="/">Layout</Link>
-      <br />
-      <Link to="/home">Home</Link>
+    <div className="container">
+      <div className={cx("page-layout")}>
+        <div className={cx("page-layout__header")}>{headerElement}</div>
+        <div className={cx("page-layout__body")}>{bodyElement}</div>
+      </div>
     </div>
   );
 });
 
-export default Layout;
+export default PageLayout;

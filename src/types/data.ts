@@ -4,3 +4,7 @@ export interface IProduct {
   price: number;
   isComplete: boolean;
 }
+
+export interface IProductFormData {
+  
+}

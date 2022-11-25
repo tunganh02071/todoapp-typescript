@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-empty-pattern */
-import TableList from "src/components/elements/TableList/TableList";
+import TableList from "src/components/elements/ProductTable/ProductTable";
 import { IProduct } from "src/types/data";
 import { useState } from "react";
 import ModalAddEditProduct from "src/components/ModalAddEditProduct";
