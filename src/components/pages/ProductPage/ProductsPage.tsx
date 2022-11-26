@@ -3,7 +3,7 @@
 /* eslint-disable no-empty-pattern */
 
 // libarary
-import bind from "classnames/bind";
+// import bind from "classnames/bind";
 import { memo, useState } from "react";
 
 // types
@@ -11,19 +11,22 @@ import { DialogMode, IProduct, IProductFormData } from "src/types";
 
 // component
 import ProductTable from "src/components/elements/ProductTable/ProductTable";
-import ModalAddEditProduct from "src/components/ModalAddEditProduct";
 
 // styles
-import styles from "./Component.module.scss";
-import PageLayout from "src/components/layouts/PageLayout/PageLayout";
 import ProductDialog from "src/components/elements/ProductDialog/ProductDialog";
+import PageLayout from "src/components/layouts/PageLayout/PageLayout";
+import { DEFAULT_PRODUCT_FORM_DATA } from "src/const/const";
+import { Button } from "react-bootstrap";
+// import styles from "./Component.module.scss";
 
-const cx = bind.bind(styles);
+// const cx = bind.bind(styles);
 
 const ProductListPage = memo(() => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [dialogMode, setDialogMode] = useState<DialogMode>(DialogMode.None);
-  const [productFormData, setProductFormData] = useState<IProductFormData>();
+  const [productFormData, setProductFormData] = useState<IProductFormData>(
+    DEFAULT_PRODUCT_FORM_DATA,
+  );
 
   const addProduct = (product: IProduct) => {
     const currentProducts = [...products, product];
@@ -49,6 +52,15 @@ const ProductListPage = memo(() => {
       headerElement={<h1>danh sach san pham</h1>}
       bodyElement={
         <>
+          <Button
+            variant="primary"
+            onClick={() => {
+              setDialogMode(DialogMode.Create);
+              setProductFormData(DEFAULT_PRODUCT_FORM_DATA);
+            }}
+          >
+            Add
+          </Button>
           <ProductTable
             products={products}
             deleteProduct={deleteProduct}
@@ -57,12 +69,10 @@ const ProductListPage = memo(() => {
           />
           <ProductDialog
             dialogMode={dialogMode}
-            setProducts={function (newProduct: IProduct): void {
-              throw new Error("Function not implemented.");
-            }}
-            setDialogMode={function (newDialogMode: DialogMode): void {
-              throw new Error("Function not implemented.");
-            }}
+            productFormData={productFormData}
+            addProduct={addProduct}
+            updateProduct={updateProduct}
+            setDialogMode={setDialogMode}
           />
         </>
       }

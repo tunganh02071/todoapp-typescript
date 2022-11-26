@@ -16,19 +16,20 @@ export interface IModalAddEditProductProps {
 }
 export interface ProductListPageProps {
   products: IProduct[];
-  deleteProduct: (productID : string) => void;
-  setProductFormData: (newProductFormData :IProductFormData) => void;
+  deleteProduct: (productID: string) => void;
+  setProductFormData: (newProductFormData: IProductFormData) => void;
   setDialogMode: (newDialogMode: DialogMode) => void;
 }
 
 export interface PageLayoutProps {
-  headerElement: ReactNode,
-  bodyElement: ReactNode,
+  headerElement: ReactNode;
+  bodyElement: ReactNode;
 }
 
 export interface ProductDialogProp {
-  dialogMode: DialogMode,
-  setProducts: (newProduct: IProduct) => void;
-  setDialogMode: (newDialogMode :DialogMode) => void;
-  
+  dialogMode: DialogMode;
+  productFormData: IProductFormData;
+  addProduct: (newProduct: IProduct) => void;
+  updateProduct: (updatedProduct: IProduct) => void;
+  setDialogMode: (newDialogMode: DialogMode) => void;
 }

@@ -3,29 +3,50 @@
 /* eslint-disable no-empty-pattern */
 
 // libarary
-import bind from "classnames/bind";
-import { memo, useMemo, useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+// import bind from "classnames/bind";
+import { memo, useEffect, useMemo } from "react";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
 import { DEFAULT_PRODUCT_FORM_DATA } from "src/consts/product";
-import { ProductDialogProp } from "src/types";
-
+import { v4 as uuidv4 } from "uuid";
+import * as yup from "yup";
 // types
-import { DialogMode } from "src/types";
-
+import {
+  IProduct,
+  IProductFormData,
+  ProductDialogProp,
+  DialogMode,
+} from "src/types";
 // component
 
 // styles
-import styles from "./Component.module.scss";
+// import styles from "./ProductDialog.module.scss";
 
-const cx = bind.bind(styles);
+// const cx = bind.bind(styles);
 
+const schema = yup.object({
+  name: yup.string().required("The name is requirte"),
+  price: yup.number().positive().integer().required("The name is requirte"),
+});
 const ProductDialog = memo(
-  ({ dialogMode, setProducts, setDialogMode }: ProductDialogProp) => {
-    const { register } = useForm({
+  ({
+    dialogMode,
+    productFormData,
+    addProduct,
+    updateProduct,
+    setDialogMode,
+  }: ProductDialogProp) => {
+    const {
+      register,
+      reset,
+      formState: { errors },
+      handleSubmit,
+    } = useForm({
       defaultValues: DEFAULT_PRODUCT_FORM_DATA,
+      resolver: yupResolver(schema),
     });
 
     const show = dialogMode !== DialogMode.None;
@@ -33,7 +54,7 @@ const ProductDialog = memo(
       switch (dialogMode) {
         case DialogMode.Create:
           return "Create Product";
-        case DialogMode.Create:
+        case DialogMode.Edit:
           return "Edit Product";
         default:
           return "";
@@ -41,41 +62,49 @@ const ProductDialog = memo(
     }, [dialogMode]);
 
     const handleClose = () => setDialogMode(DialogMode.None);
+    const handleSave = (data: IProductFormData) => {
+      if (dialogMode === DialogMode.Create) {
+        const newProductId = uuidv4();
+        const newProduct = { ...data, id: newProductId } as IProduct;
+        addProduct(newProduct);
+      } else if (dialogMode === DialogMode.Edit) {
+        const updatedProduct = { ...data } as IProduct;
+        updateProduct(updatedProduct);
+      }
+      handleClose();
+    };
+    useEffect(() => {
+      reset({ ...productFormData });
+    }, [productFormData]);
 
     return (
-      <>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>{title}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group
-                className="mb-3"
-                controlId="productForm.ControlInput1"
-              >
-                <Form.Label>Name</Form.Label>
-                <Form.Control type="text" {...register("name")} />
-              </Form.Group>
-              <Form.Group
-                className="mb-3"
-                controlId="productForm.ControlInput1"
-              >
-                <Form.Label>Price</Form.Label>
-                <Form.Control type="number" {...register("price")} />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleClose}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmit(handleSave)}>
+            <Form.Group className="mb-3" controlId="productForm.ControlInput1">
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text" {...register("name")} />
+              <p>{errors.name?.message}</p>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="productForm.ControlInput1">
+              <Form.Label>Price</Form.Label>
+              <Form.Control type="number" {...register("price")} />
+              <p>{errors.price?.message}</p>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" type="submit">
+            Save
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     );
   },
 );

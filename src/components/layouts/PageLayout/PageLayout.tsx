@@ -12,7 +12,7 @@ import { PageLayoutProps } from "src/types";
 // component
 
 // styles
-import styles from "./Component.module.scss";
+import styles from "./PageLayout.module.scss";
 
 const cx = bind.bind(styles);
 
