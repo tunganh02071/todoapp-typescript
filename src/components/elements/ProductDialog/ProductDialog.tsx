@@ -4,7 +4,7 @@
 
 // libarary
 import { yupResolver } from "@hookform/resolvers/yup";
-// import bind from "classnames/bind";
+import bind from "classnames/bind";
 import { memo, useEffect, useMemo } from "react";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -23,9 +23,9 @@ import {
 // component
 
 // styles
-// import styles from "./ProductDialog.module.scss";
+import styles from "./ProductDialog.module.scss";
 
-// const cx = bind.bind(styles);
+const cx = bind.bind(styles);
 
 const schema = yup.object({
   name: yup.string().required("The name is requirte"),
@@ -78,33 +78,41 @@ const ProductDialog = memo(
     }, [productFormData]);
 
     return (
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>{title}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit(handleSave)}>
-            <Form.Group className="mb-3" controlId="productForm.ControlInput1">
-              <Form.Label>Name</Form.Label>
-              <Form.Control type="text" {...register("name")} />
-              <p>{errors.name?.message}</p>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="productForm.ControlInput1">
-              <Form.Label>Price</Form.Label>
-              <Form.Control type="number" {...register("price")} />
-              <p>{errors.price?.message}</p>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" type="submit">
-            Save
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <div className={cx("dialog-product")}>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>{title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleSubmit(handleSave)}>
+              <Form.Group
+                className="mb-3"
+                controlId="productForm.ControlInput1"
+              >
+                <Form.Label>Name</Form.Label>
+                <Form.Control type="text" {...register("name")} />
+                <p>{errors.name?.message}</p>
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="productForm.ControlInput2"
+              >
+                <Form.Label>Price</Form.Label>
+                <Form.Control type="number" {...register("price")} />
+                <p>{errors.price?.message}</p>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" type="submit">
+              Save
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     );
   },
 );

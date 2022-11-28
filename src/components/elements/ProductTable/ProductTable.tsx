@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
 // librarys
-// import bind from "classnames/bind";
+import bind from "classnames/bind";
 import { memo } from "react";
 import { Button } from "react-bootstrap";
 
@@ -11,9 +11,9 @@ import { Button } from "react-bootstrap";
 import { DialogMode, IProduct, ProductListPageProps } from "src/types";
 
 // style
-// import styles from "./ProductTable.module.scss";
+import styles from "./ProductTable.module.scss";
 
-// const cx = bind.bind(styles);
+const cx = bind.bind(styles);
 
 const ProductTable = memo(
   ({
@@ -26,11 +26,10 @@ const ProductTable = memo(
       setProductFormData({ ...product });
       setDialogMode(DialogMode.Edit);
     };
-
     return (
       <table className="table">
         <thead className="thead-dark">
-          <tr>
+          <tr className={cx("table-header")}>
             <th>NTH</th>
             <th>Name</th>
             <th>Price</th>
@@ -40,8 +39,9 @@ const ProductTable = memo(
         </thead>
         <tbody>
           {products.map((product, index) => {
+            console.log(product);
             return (
-              <tr key={`product-${product.id}`}>
+              <tr key={`product-${product.id}`} className={cx("table-body")}>
                 <th>{index + 1}</th>
                 <td>{product.name}</td>
                 <td>{product.price}</td>

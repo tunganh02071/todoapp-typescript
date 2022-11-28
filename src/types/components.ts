@@ -9,11 +9,6 @@ export interface ProductTableProps {
   removeProduct: any;
   updateProduct: any;
 }
-export interface IModalAddEditProductProps {
-  addProduct: any;
-  handleCloseModal: any;
-  isEditProduct: boolean;
-}
 export interface ProductListPageProps {
   products: IProduct[];
   deleteProduct: (productID: string) => void;

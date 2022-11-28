@@ -3,7 +3,7 @@
 /* eslint-disable no-empty-pattern */
 
 // libarary
-// import bind from "classnames/bind";
+import bind from "classnames/bind";
 import { memo, useState } from "react";
 
 // types
@@ -17,9 +17,10 @@ import ProductDialog from "src/components/elements/ProductDialog/ProductDialog";
 import PageLayout from "src/components/layouts/PageLayout/PageLayout";
 import { DEFAULT_PRODUCT_FORM_DATA } from "src/const/const";
 import { Button } from "react-bootstrap";
-// import styles from "./Component.module.scss";
+import styles from "./Component.module.scss";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-// const cx = bind.bind(styles);
+const cx = bind.bind(styles);
 
 const ProductListPage = memo(() => {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -49,10 +50,13 @@ const ProductListPage = memo(() => {
   };
   return (
     <PageLayout
-      headerElement={<h1>danh sach san pham</h1>}
+      headerElement={
+        <h1 className={cx("header-element")}>This is list product</h1>
+      }
       bodyElement={
         <>
           <Button
+            className={cx("btn-primary")}
             variant="primary"
             onClick={() => {
               setDialogMode(DialogMode.Create);
