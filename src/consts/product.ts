@@ -6,4 +6,10 @@ export const DEFAULT_PRODUCT_FORM_DATA: IProductFormData = {
   price: null,
 };
 
+export const DEFAULT_PRODUCT_FORM_DATA_AFTER_ADD: IProductFormData = {
+  id: null,
+  name: null,
+  price: null,
+};
+
 export const CATEGORY = "book";

@@ -23,6 +23,7 @@ export interface PageLayoutProps {
 
 export interface ProductDialogProp {
   dialogMode: DialogMode;
+  setProductFormData: (newProductFormData: IProductFormData) => void;
   productFormData: IProductFormData;
   addProduct: (newProduct: IProduct) => void;
   updateProduct: (updatedProduct: IProduct) => void;

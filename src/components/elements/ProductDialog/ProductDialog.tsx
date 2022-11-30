@@ -10,7 +10,6 @@ import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
-
 import { v4 as uuidv4 } from "uuid";
 import * as yup from "yup";
 // types
@@ -20,7 +19,10 @@ import {
   IProductFormData,
   ProductDialogProp,
 } from "src/types";
-import { DEFAULT_PRODUCT_FORM_DATA } from "src/consts/product";
+import {
+  DEFAULT_PRODUCT_FORM_DATA,
+  DEFAULT_PRODUCT_FORM_DATA_AFTER_ADD,
+} from "src/consts/product";
 // component
 
 // styles
@@ -35,6 +37,7 @@ const schema = yup.object({
 const ProductDialog = memo(
   ({
     dialogMode,
+    setProductFormData,
     productFormData,
     addProduct,
     updateProduct,
@@ -73,6 +76,7 @@ const ProductDialog = memo(
         updateProduct(updatedProduct);
       }
       handleClose();
+      setProductFormData(DEFAULT_PRODUCT_FORM_DATA_AFTER_ADD);
     };
     useEffect(() => {
       reset({ ...productFormData });

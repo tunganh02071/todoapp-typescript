@@ -5,18 +5,18 @@
 // libarary
 import bind from "classnames/bind";
 import { memo, useState } from "react";
+import { Button } from "react-bootstrap";
 
 // types
 import { DialogMode, IProduct, IProductFormData } from "src/types";
+import { DEFAULT_PRODUCT_FORM_DATA } from "src/const/const";
 
 // component
 import ProductTable from "src/components/elements/ProductTable/ProductTable";
-
-// styles
 import ProductDialog from "src/components/elements/ProductDialog/ProductDialog";
 import PageLayout from "src/components/layouts/PageLayout/PageLayout";
-import { DEFAULT_PRODUCT_FORM_DATA } from "src/const/const";
-import { Button } from "react-bootstrap";
+
+// styles
 import styles from "./Component.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -73,6 +73,7 @@ const ProductListPage = memo(() => {
           />
           <ProductDialog
             dialogMode={dialogMode}
+            setProductFormData={setProductFormData}
             productFormData={productFormData}
             addProduct={addProduct}
             updateProduct={updateProduct}
