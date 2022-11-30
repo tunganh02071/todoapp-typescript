@@ -6,4 +6,7 @@ export enum DialogMode {
 
 export enum RoutePath {
   Home = "/",
+  Product = "/product",
+  Couter = "/counter",
+  Todo = "/todo",
 }

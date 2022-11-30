@@ -18,7 +18,6 @@ import PageLayout from "src/components/layouts/PageLayout/PageLayout";
 
 // styles
 import styles from "./Component.module.scss";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const cx = bind.bind(styles);
 
