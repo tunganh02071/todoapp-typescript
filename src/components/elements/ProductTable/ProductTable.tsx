@@ -6,6 +6,7 @@
 import bind from "classnames/bind";
 import { memo } from "react";
 import { Button } from "react-bootstrap";
+import Table from "react-bootstrap/Table";
 
 // types
 import { DialogMode, IProduct, ProductListPageProps } from "src/types";
@@ -27,7 +28,7 @@ const ProductTable = memo(
       setDialogMode(DialogMode.Edit);
     };
     return (
-      <table className="table">
+      <Table className="table" striped bordered hover>
         <thead className="thead-dark">
           <tr className={cx("table-header")}>
             <th>NTH</th>
@@ -39,7 +40,6 @@ const ProductTable = memo(
         </thead>
         <tbody>
           {products.map((product, index) => {
-            console.log(product);
             return (
               <tr key={`product-${product.id}`} className={cx("table-body")}>
                 <th>{index + 1}</th>
@@ -69,7 +69,7 @@ const ProductTable = memo(
             );
           })}
         </tbody>
-      </table>
+      </Table>
     );
   },
 );

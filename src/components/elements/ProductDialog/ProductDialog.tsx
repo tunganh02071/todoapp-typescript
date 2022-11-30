@@ -10,16 +10,17 @@ import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
-import { DEFAULT_PRODUCT_FORM_DATA } from "src/consts/product";
+
 import { v4 as uuidv4 } from "uuid";
 import * as yup from "yup";
 // types
 import {
+  DialogMode,
   IProduct,
   IProductFormData,
   ProductDialogProp,
-  DialogMode,
 } from "src/types";
+import { DEFAULT_PRODUCT_FORM_DATA } from "src/consts/product";
 // component
 
 // styles
@@ -76,15 +77,14 @@ const ProductDialog = memo(
     useEffect(() => {
       reset({ ...productFormData });
     }, [productFormData]);
-
     return (
       <div className={cx("dialog-product")}>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>{title}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <Form onSubmit={handleSubmit(handleSave)}>
+          <Form onSubmit={handleSubmit(handleSave)}>
+            <Modal.Body>
               <Form.Group
                 className="mb-3"
                 controlId="productForm.ControlInput1"
@@ -101,16 +101,16 @@ const ProductDialog = memo(
                 <Form.Control type="number" {...register("price")} />
                 <p>{errors.price?.message}</p>
               </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" type="submit">
-              Save
-            </Button>
-            <Button variant="primary" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" type="submit">
+                Save
+              </Button>
+              <Button variant="primary" onClick={handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Form>
         </Modal>
       </div>
     );
