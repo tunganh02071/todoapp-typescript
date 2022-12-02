@@ -16,15 +16,15 @@ import { v4 as uuidv4 } from "uuid";
 import * as yup from "yup";
 // types
 import {
+  DEFAULT_PRODUCT_FORM_DATA,
+  DEFAULT_PRODUCT_FORM_DATA_AFTER_ADD,
+} from "src/consts/product";
+import {
   DialogMode,
   IProduct,
   IProductFormData,
   ProductDialogProp,
 } from "src/types";
-import {
-  DEFAULT_PRODUCT_FORM_DATA,
-  DEFAULT_PRODUCT_FORM_DATA_AFTER_ADD,
-} from "src/consts/product";
 // component
 
 // styles

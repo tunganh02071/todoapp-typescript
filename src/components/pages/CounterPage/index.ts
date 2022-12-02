@@ -1,2 +1,2 @@
 /* eslint-disable import/export */
-export * from "./PageCouter";
+export * from "./CounterPage";

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // components
 import HomePage from "./components/pages/HomePage/HomePage";
-import PageCouter from "./components/pages/PageCouter/PageCouter";
+import PageCouter from "./components/pages/CounterPage/CounterPage";
 import ProductListPage from "./components/pages/ProductPage/ProductsPage";
 
 // styles
